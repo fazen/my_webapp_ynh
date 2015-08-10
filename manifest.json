@@ -1,13 +1,13 @@
 {
-    "name": "Multi custom webapp",
-    "id": "multi_webapp",
+    "name": "Webapp multipla",
+    "id": "fazen_multi_webapp",
     "description": {
         "en": "Empty App without FTP access",
         "fr": "App vide sans accès FTP"
     },
     "maintainer": {
-        "name": "Maniack Crudelis",
-        "email": "maniackc_dev@crudelis.fr"
+        "name": "Stefano",
+        "email": "fazen@fazenlab.it"
     },
     "multi_instance": "true",
     "arguments": {
@@ -40,8 +40,8 @@
             {
                 "name": "is_public",
                 "ask": {
-                    "en": "Is it a public website ?",
-                    "fr": "Est-ce un site public ?"
+                    "en": "Is it a public website?",
+                    "fr": "Est-ce un site public?"
                 },
                 "choices": ["Yes", "No"],
                 "default": "Yes"

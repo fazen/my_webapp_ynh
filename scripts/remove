@@ -1,10 +1,10 @@
 #!/bin/bash
 
-user=$(sudo yunohost app setting multi_webapp ftp_user)
-path=$(sudo yunohost app setting multi_webapp path)
-domain=$(sudo yunohost app setting multi_webapp domain)
+user=$(sudo yunohost app setting fazen_multi_webapp ftp_user)
+path=$(sudo yunohost app setting fazen_multi_webapp path)
+domain=$(sudo yunohost app setting fazen_multi_webapp domain)
 
-parent_dir=/var/www/multi_webapp
+parent_dir=/var/www/fazen_multi_webapp
 name=$(echo $2 | cut -d '/' -f 2)
 if [ $path = "/" ]
 then
