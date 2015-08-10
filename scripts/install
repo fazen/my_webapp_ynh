@@ -23,6 +23,7 @@ if [[ ! $? -eq 0 ]]; then
 fi
 
 sudo yunohost app setting fazen_multi_webapp name -v $name
+sudo yunohost app setting fazen_multi_webapp label -v fazen_multi_webapp
 
 # Check user
 sudo yunohost user list --json | grep -q "\"username\": \"$user\""
