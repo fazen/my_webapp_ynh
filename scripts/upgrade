@@ -6,11 +6,16 @@ path=$(sudo yunohost app setting multi_webapp path)
 user=$(sudo yunohost app setting multi_webapp ftp_user)
 is_public=$(sudo yunohost app setting multi_webapp is_public)
 
+parent_dir=/var/www/multi_webapp
 name=$(echo $2 | cut -d '/' -f 2)
-parent_dir=/var/www/webapp_$user
-final_path=$parent_dir$path
-
-netftp_path=/ftp_webapp_$user
+if [ $path = "/" ]
+then
+    final_path=$parent_dir
+    name="root_webapp"
+else
+    final_path=$parent_dir$path
+    name=$(echo $2 | cut -d '/' -f 2)
+fi
 
 # Modify Nginx configuration file and copy it to Nginx conf directory
 sed -i "s@PATHTOCHANGE@$path@g" ../conf/nginx.conf

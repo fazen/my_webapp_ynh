@@ -3,9 +3,17 @@
 user=$(sudo yunohost app setting multi_webapp ftp_user)
 path=$(sudo yunohost app setting multi_webapp path)
 domain=$(sudo yunohost app setting multi_webapp domain)
-parent_dir=/var/www/webapp_$user
-name=$(echo $path | cut -d '/' -f 2)
-final_path=$parent_dir$path
+
+parent_dir=/var/www/multi_webapp
+name=$(echo $2 | cut -d '/' -f 2)
+if [ $path = "/" ]
+then
+    final_path=$parent_dir
+    name="root_webapp"
+else
+    final_path=$parent_dir$path
+    name=$(echo $2 | cut -d '/' -f 2)
+fi
 
 # Suppression du dossier de la webapp
 sudo rm -rf $final_path
