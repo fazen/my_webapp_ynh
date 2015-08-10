@@ -6,7 +6,7 @@ path=$2
 user=$3
 is_public=$4
 
-parent_dir=/var/www/webapp_$user
+parent_dir=/var/www/multi_webapp
 if [ $path = "/" ]
 then
     final_path=$parent_dir
@@ -15,8 +15,6 @@ else
     final_path=$parent_dir$path
     name=$(echo $2 | cut -d '/' -f 2)
 fi
-
-netftp_path=/ftp_webapp_$user
 
 # Check domain/path availability
 sudo yunohost app checkurl $domain$path -a multi_webapp
@@ -32,7 +30,6 @@ if [[ ! $? -eq 0 ]]; then
 echo "Wrong user"
     exit 1
 fi
-sudo yunohost app setting multi_webapp ftp_user -v $user
 
 # Créer le dossier parent des webapp pour l'utilisateur
 if test ! -d $parent_dir
@@ -46,22 +43,12 @@ else
     echo "Création du dossier $parent_dir ignorée, le dossier existe déjà."
 fi
 
-# Change user ID in configurations
-sed -i "s@FTPUSER@$user@g" ../sources/index_ftp.html
-sed -i "s@HOST@$domain@g" ../sources/index_ftp.html
-sed -i "s@NET2FTP@$netftp_path@g" ../sources/index_ftp.html
+# Change data in configurations
+#sed -i "s@HOST@$domain@g" ../sources/index_ftp.html
 
 # Copy files to the right place
 sudo mkdir $final_path
 sudo cp ../sources/index.html $final_path/
-# Vérifie si pure-ftpd est déjà installé
-if test -f /usr/sbin/pure-ftpd-ldap
-then	# Si oui, vérifie si net2ftp est également installé.
-    if test -d $parent_dir/netftp
-    then
-	sudo cp ../sources/index_ftp.html $final_path/index.html	# Remplace l'index.html par celui intégrant les informations ftp
-    fi
-fi
 
 # Set permissions
 sudo chmod 775 -R $final_path
